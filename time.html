@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>World Time Zones</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .time-zone {
+            margin: 10px 0;
+            padding: 10px;
+            background: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+
+<h1>Current Time in Different Time Zones</h1>
+
+<div id="timeZones"></div>
+
+<script>
+    function updateTime() {
+        const istDate = new Date();
+        const istOffset = 5.5 * 60; // IST is UTC+5:30 in minutes
+        const timeZones = {
+            "UTC": 0,
+            "EST (New York)": -5,
+            "CST (Chicago)": -6,
+            "MST (Denver)": -7,
+            "PST (Los Angeles)": -8,
+            "GMT (London)": 0,
+            "CET (Berlin)": 1,
+            "IST (India)": 5.5,
+            "CST (China)": 8,
+            "JST (Tokyo)": 9,
+            "AEDT (Sydney)": 11,
+            "NZDT (Auckland)": 13
+        };
+
+        let timeZoneHtml = '';
+
+        for (const [zone, offset] of Object.entries(timeZones)) {
+            const localDate = new Date(istDate.getTime() + (offset - 5.5) * 60 * 60 * 1000);
+            timeZoneHtml += `<div class="time-zone">${zone}: ${localDate.toLocaleTimeString()}</div>`;
+        }
+
+        document.getElementById('timeZones').innerHTML = timeZoneHtml;
+    }
+
+    // Update time every second
+    setInterval(updateTime, 1000);
+    updateTime(); // Initial call to display time immediately
+</script>
+
+</body>
+</html>
